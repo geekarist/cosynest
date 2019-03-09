@@ -5,59 +5,40 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+
         <header className="App-header">
-          <p>
-            <table>
-              <tr>
-                <th>Id</th>
-                <th>Type</th>
-                <th>Pièces</th>
-                <th>Chambres</th>
-                <th>Surface</th>
-                <th>Prix</th>
-                <th>Ville</th>
-                <th>🚙 IGR</th>
-                <th>🚃 Paris</th>
-              </tr>
-              {findAds().map(ad => {
-                return <tr>
-                  <td>
-                    <a href={ad.url} target="_blank">{ad.id}</a>
-                  </td>
-                  <td>{ad.type}</td>
-                  <td>{ad.rooms}</td>
-                  <td>{ad.bedrooms}</td>
-                  <td>{ad.area}</td>
-                  <td>{ad.price}</td>
-                  <td>{ad.city}</td>
-                  <td>{ad.commuteIgr}</td>
-                  <td>{ad.commuteParis}</td>
-                </tr>
-              }
-              )}
-            </table>
-          </p>
+          <p>Header</p>
         </header>
+
+        <table>
+          <tr>
+            <th>Ville</th>
+            <th>Code Postal</th>
+            <th>🚙 IGR</th>
+            <th>🚃 Paris</th>
+          </tr>
+          <tr>
+            <td>Cachan</td>
+            <td>94230</td>
+            <td>10 min</td>
+            <td>30 min</td>
+          </tr>
+          <tr>
+            <td>Paris 13</td>
+            <td>74013</td>
+            <td>10 min</td>
+            <td>0 min</td>
+          </tr>
+          <tr>
+            <td>Villebon-sur-Yvette</td>
+            <td>91140</td>
+            <td>45 min</td>
+            <td>60 min</td>
+          </tr>
+        </table>
       </div>
     );
   }
-}
-
-function findAds() {
-  return [...Array(100)].map((obj, index) => {
-    return {
-      id: index,
-      url: "https://www.seloger.com/annonces/achat/maison/cachan-94/135790297.htm?ci=940016&idtt=2,5&idtypebien=2&naturebien=1,2,4&pxmax=350000&tri=initial&bd=ListToDetail",
-      type: "Maison / Villa",
-      rooms: "2 p",
-      bedrooms: "1 ch",
-      area: "34 m2",
-      price: "350 000 €",
-      city: "Cachan",
-      commuteIgr: "45 min",
-      commuteParis: "47 min"
-    }
-  })
 }
 
 export default App;
