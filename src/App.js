@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
@@ -7,22 +6,58 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
           <p>
-            Edit <code>src/App.js</code> and save to reload.
+            <table>
+              <tr>
+                <th>Id</th>
+                <th>Type</th>
+                <th>Pièces</th>
+                <th>Chambres</th>
+                <th>Surface</th>
+                <th>Prix</th>
+                <th>Ville</th>
+                <th>🚙 IGR</th>
+                <th>🚃 Paris</th>
+              </tr>
+              {findAds().map(ad => {
+                return <tr>
+                  <td>
+                    <a href={ad.url} target="_blank">{ad.id}</a>
+                  </td>
+                  <td>{ad.type}</td>
+                  <td>{ad.rooms}</td>
+                  <td>{ad.bedrooms}</td>
+                  <td>{ad.area}</td>
+                  <td>{ad.price}</td>
+                  <td>{ad.city}</td>
+                  <td>{ad.commuteIgr}</td>
+                  <td>{ad.commuteParis}</td>
+                </tr>
+              }
+              )}
+            </table>
           </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
         </header>
       </div>
     );
   }
+}
+
+function findAds() {
+  return [...Array(100)].map((obj, index) => {
+    return {
+      id: index,
+      url: "https://www.seloger.com/annonces/achat/maison/cachan-94/135790297.htm?ci=940016&idtt=2,5&idtypebien=2&naturebien=1,2,4&pxmax=350000&tri=initial&bd=ListToDetail",
+      type: "Maison / Villa",
+      rooms: "2 p",
+      bedrooms: "1 ch",
+      area: "34 m2",
+      price: "350 000 €",
+      city: "Cachan",
+      commuteIgr: "45 min",
+      commuteParis: "47 min"
+    }
+  })
 }
 
 export default App;
