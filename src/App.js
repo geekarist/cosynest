@@ -7,7 +7,7 @@ class App extends Component {
       <div className="App">
 
         <header className="App-header">
-          <p>Header</p>
+          <p>Villes à moins de 45 min en transports sans correspondance de Paris, à moins de 45 min en voiture de Gustave Roussy</p>
         </header>
 
         <table>
