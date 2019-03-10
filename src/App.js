@@ -66,7 +66,7 @@ class App extends Component {
   onLoadPage() {
     this.findCitiesContainingTrainStation()
       .then(cities => Promise.all(this.completeWithCarItineraryDuration(cities)))
-      .then(filter(city => city.commute1 < 45))
+      //.then(filter(city => city.commute1 < 45))
       .then(filteredCities => Promise.all(this.completeWithTransitItineraryDuration(filteredCities)))
       .then(filteredCities => this.completeWithKey(filteredCities))
       .then(cityResults => ({ results: cityResults }))
@@ -76,29 +76,33 @@ class App extends Component {
   findCitiesContainingTrainStation() {
     return Promise.resolve([
       { name: 'Cachan', postalCode: '94230' },
-      { name: 'Saint-Denis', postalCode: '93200' }
+      { name: 'Saint-Denis', postalCode: '93200' },
+      { name: 'Charenton-le-Pont', postalCode: '94220' }
     ]);
   }
 
   completeWithCarItineraryDuration(cities) {
-    return cities.map(city => {
-      return Promise.resolve({
-        city: city.name,
-        postalCode: city.postalCode,
-        commute1: city.name.length
+    return cities.map(city =>
+      this.findRoutes(city.name, "Gustave Roussy, Villejuif").then(response => {
+        var durationMin = response.routes[0].legs[0].duration.value / 60;
+        return {
+          city: city.name,
+          postalCode: city.postalCode,
+          commute1: durationMin
+        }
       })
-    });
+    );
   }
 
   completeWithTransitItineraryDuration(cities) {
-    return cities.map(item => {
-      return Promise.resolve({
+    return cities.map(item => new Promise((resolve, reject) => {
+      resolve({
         city: item.city,
         postalCode: item.postalCode,
         commute1: item.commute1,
-        commute2: item.commute1 * 2
+        commute2: "TODO"
       });
-    });
+    }));
   }
 
   completeWithKey(cities) {
@@ -141,19 +145,20 @@ class App extends Component {
     }
   }
 
-  findRoutes(homeAddr, workAddr) {
-    var promise = new Promise();
-    var apiKey = conf.google.api.key;
-    loadMapsApi({ key: apiKey }).then(maps => {
-      var service = new maps.DirectionsService()
-      var request = {
-        origin: homeAddr,
-        destination: workAddr,
-        travelMode: "TRANSIT"
-      }
-      service.route(request, (result, status) => {
-        promise.resolve(result);
-      })
+  findRoutes(homeAddr, workAddr, travelMode) {
+    return new Promise((resolve, reject) => {
+      var apiKey = conf.google.api.key;
+      loadMapsApi({ key: apiKey }).then(maps => {
+        var service = new maps.DirectionsService()
+        var request = {
+          origin: homeAddr,
+          destination: workAddr,
+          travelMode: "DRIVING"
+        }
+        service.route(request, (result, status) => {
+          resolve(result);
+        })
+      });
     });
   }
 }
