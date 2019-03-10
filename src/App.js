@@ -20,30 +20,42 @@ class App extends Component {
       <div className="App">
 
         <header className="App-header">
-          <p>Villes à moins de 45 min en transports sans correspondance de Paris, à moins de 45 min en voiture de Gustave Roussy</p>
+          <h1>CosyNest</h1>
         </header>
 
-        <table>
-          <thead>
-            <tr>
-              <th>Ville</th>
-              <th>Code Postal</th>
-              <th>🚙 IGR</th>
-              <th>🚃 Paris</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.results.map(item => {
-              return <tr key={item.key}>
-                <td>{item.city}</td>
-                <td>{item.postalCode}</td>
-                <td>{item.commute1}</td>
-                <td>{item.commute2}</td>
-              </tr>
+        <div className="App-content">
 
-            })}
-          </tbody>
-        </table>
+          <p>
+            Villes qui respectent tous les critères suivants :
+            <ul>
+              <li>Une gare sur le réseau Transilien</li>
+              <li>La gare est à moins de 45 min en transports sans correspondance de Paris</li>
+              <li>A moins de 45 min en voiture de Gustave Roussy</li>
+            </ul>
+          </p>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Ville</th>
+                <th>Code Postal</th>
+                <th>🚙 IGR</th>
+                <th>🚃 Paris</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.state.results.map(item => {
+                return <tr key={item.key}>
+                  <td>{item.city}</td>
+                  <td>{item.postalCode}</td>
+                  <td>{item.commute1}</td>
+                  <td>{item.commute2}</td>
+                </tr>
+
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
     );
   }

@@ -19,6 +19,13 @@
   color: white;
 }
 
+.App-content {
+  text-align: left;
+  width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .App-link {
   color: #61dafb;
 }
@@ -33,8 +40,6 @@
 }
 
 table {
-  margin-left: auto;
-  margin-right: auto;
   margin-top: 16px;
   margin-bottom: 16px;
   border-collapse: collapse;
