@@ -39,6 +39,10 @@
   }
 }
 
+.content-header {
+  margin: 32px 32px;
+}
+
 table {
   margin-top: 16px;
   margin-bottom: 16px;

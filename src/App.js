@@ -27,15 +27,17 @@ class App extends Component {
 
         <div className="App-content">
 
-          <p>
-            Villes qui respectent tous les critères suivants :
+          <div className="content-header">
+            <p>
+              Villes qui respectent tous les critères suivants :
           </p>
 
-          <ul>
-            <li>Une gare sur le réseau Transilien</li>
-            <li>La gare est à moins de 45 min en transports sans correspondance de Paris</li>
-            <li>A moins de 45 min en voiture de Gustave Roussy</li>
-          </ul>
+            <ul>
+              <li>Une gare sur le réseau Transilien</li>
+              <li>La gare est à moins de 45 min en transports sans correspondance de Paris</li>
+              <li>A moins de 45 min en voiture de Gustave Roussy</li>
+            </ul>
+          </div>
 
           <table>
             <thead>
