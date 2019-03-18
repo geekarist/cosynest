@@ -5,6 +5,7 @@ import { promised } from 'q';
 
 const loadMapsApi = require('load-google-maps-api');
 const filter = require('promise-filter');
+const axios = require('axios');
 
 class App extends Component {
 
@@ -80,7 +81,9 @@ class App extends Component {
             .then(cityResultsObj => this.setState(cityResultsObj));
     }
 
-    findCitiesContainingTrainStation() {
+    async findCitiesContainingTrainStation() {
+        const response = await axios.get('https://data.sncf.com/api/records/1.0/search/?dataset=sncf-gares-et-arrets-transilien-ile-de-france&sort=libelle&facet=code_uic&facet=libelle_point_d_arret&facet=nom_gare&facet=commune&facet=zone_navigo&facet=gare_non_sncf');
+        console.log(response);
         return Promise.resolve([
             { name: 'Cachan', postalCode: '94230' },
             { name: 'Boissy-saint-Léger', postalCode: '94470' },
