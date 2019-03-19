@@ -73,27 +73,25 @@ class App extends Component {
 
     onLoadPage() {
         this.findCitiesContainingTrainStation()
-            .then(cities => Promise.all(this.completeWithCarItineraryDuration(cities)))
+            // .then(cities => Promise.all(this.completeWithCarItineraryDuration(cities)))
             // .then(filter(city => city.commute1 < 45))
-            .then(filteredCities => Promise.all(this.completeWithTransitItineraryDuration(filteredCities)))
-            .then(filteredCities => this.completeWithKey(filteredCities))
+            // .then(filteredCities => Promise.all(this.completeWithTransitItineraryDuration(filteredCities)))
+            // .then(filteredCities => this.completeWithKey(filteredCities))
             .then(cityResults => ({ results: cityResults }))
             .then(cityResultsObj => this.setState(cityResultsObj));
     }
 
     async findCitiesContainingTrainStation() {
-        const response = await axios.get('https://data.sncf.com/api/records/1.0/search/?dataset=sncf-gares-et-arrets-transilien-ile-de-france&sort=libelle&facet=code_uic&facet=libelle_point_d_arret&facet=nom_gare&facet=commune&facet=zone_navigo&facet=gare_non_sncf');
-        console.log(response);
-        return Promise.resolve([
-            { name: 'Cachan', postalCode: '94230' },
-            { name: 'Boissy-saint-Léger', postalCode: '94470' },
-            { name: 'Versailles', postalCode: '78000' },
-            { name: 'Lésigny', postalCode: '77150' },
-            { name: 'Saint-Denis', postalCode: '93200' },
-            { name: 'Santeny', postalCode: '94440' },
-            { name: 'Paris 13', postalCode: '75013' },
-            { name: 'Charenton-le-Pont', postalCode: '94220' }
-        ]);
+        const response = await axios.get('https://data.sncf.com/api/records/1.0/search//?dataset=sncf-gares-et-arrets-transilien-ile-de-france&rows=1000');
+        console.log(response.data.records.length);
+        const stops = response.data.records.map((record, index) => ({
+            key: index,
+            name: record.fields.commune,
+            postalCode: 'TODO',
+            commute1: 'TODO',
+            commute2: 'TODO'
+        }));
+        return Promise.resolve(stops);
     }
 
     completeWithCarItineraryDuration(cities) {
