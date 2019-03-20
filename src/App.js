@@ -84,13 +84,20 @@ class App extends Component {
     async findCitiesContainingTrainStation() {
         const response = await axios.get('https://data.sncf.com/api/records/1.0/search//?dataset=sncf-gares-et-arrets-transilien-ile-de-france&rows=1000');
         console.log(response.data.records.length);
-        const stops = response.data.records.map((record, index) => ({
+        var stops = response.data.records.map((record, index) => ({
             key: index,
             name: record.fields.commune,
             postalCode: 'TODO',
             commute1: 'TODO',
             commute2: 'TODO'
         }));
+        stops.sort((stop1, stop2) => {
+            if (stop1.name < stop2.name) return -1;
+            else if (stop1.name > stop2.name) return 1;
+            else return 0;
+        });
+        console.log(stops);
+        console.log(response.data);
         return Promise.resolve(stops);
     }
 
